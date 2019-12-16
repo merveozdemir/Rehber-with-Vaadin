@@ -37,12 +37,15 @@ public class MyUI extends UI {
         formLayout.setCaption("KİŞİ EKLE");
         filtreFormLayout.setCaption("FİLTRELE");
 
+
+        //for Grid
         DBOperations dbOperations = new DBOperations();
         kisiList = dbOperations.tumRehberListele();
         container.addAll(kisiList);
         Grid myGrid = new Grid(container);
         myGrid.setColumnOrder("id", "adi", "soyadi", "telefon");
 
+        //kişi ekle components
         TextField nameField = new TextField();
         nameField.setCaption("İsim:");
 
@@ -52,12 +55,14 @@ public class MyUI extends UI {
         TextField telNoField = new TextField();
         telNoField.setCaption("Telefon:");
 
-
         Button rehbereEkleButton = new Button("Rehbere Ekle");
+
+        //listele components
         Button tumKisilerButton = new Button("Tüm kişileri listele");
         Button kisiSilButton  = new Button("     Kişiyi Sil    ");
         Button kisiGuncelle = new Button("Kişiyi güncelle");
 
+        //filtrele components
         TextField filtreField = new TextField();
         nameField.setCaption("Adı giriniz:");
 
@@ -65,6 +70,7 @@ public class MyUI extends UI {
         Button soyadaGoreListeleButton = new Button(" Soyada göre filtrele ");
         Button telefonaGoreListeleButton = new Button("Tel. no'suna göre filtrele");
 
+        //button events
         rehbereEkleButton.addClickListener(event -> {
             String adi = nameField.getValue();
             String soyadi = surnameField.getValue();
@@ -118,6 +124,7 @@ public class MyUI extends UI {
             resetContainer();
         });
 
+        //adding components to layouts
         mainLayout.addComponents(formLayout, tableAndListeleLayout, filtreFormLayout);
         tableAndListeleLayout.addComponents(listeleLayout, myGrid);
         listeleLayout.addComponents(tumKisilerButton, kisiSilButton, kisiGuncelle);
