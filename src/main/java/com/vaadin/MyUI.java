@@ -56,6 +56,7 @@ public class MyUI extends UI {
         Button rehbereEkleButton = new Button("Rehbere Ekle");
         Button tumKisilerButton = new Button("Tüm kişileri listele");
         Button kisiSilButton  = new Button("     Kişiyi Sil    ");
+        Button kisiGuncelle = new Button("Kişiyi güncelle");
 
         TextField filtreField = new TextField();
         nameField.setCaption("Adı giriniz:");
@@ -92,6 +93,12 @@ public class MyUI extends UI {
             container.addAll(kisiList);
         });
 
+        kisiGuncelle.addClickListener(event -> {
+            Kisi kisi = (Kisi) myGrid.getSelectedRow();
+            GuncelleWindow guncelleSayfasi = new GuncelleWindow(this, kisi.getId());
+            this.addWindow(guncelleSayfasi);
+
+        });
 
         adaGoreListeleButton.addClickListener(event -> {
             String filtre = filtreField.getValue();
@@ -113,20 +120,16 @@ public class MyUI extends UI {
 
         mainLayout.addComponents(formLayout, tableAndListeleLayout, filtreFormLayout);
         tableAndListeleLayout.addComponents(listeleLayout, myGrid);
-        listeleLayout.addComponents(tumKisilerButton, kisiSilButton);
+        listeleLayout.addComponents(tumKisilerButton, kisiSilButton, kisiGuncelle);
         filtreFormLayout.addComponents(filtreField,adaGoreListeleButton,soyadaGoreListeleButton, telefonaGoreListeleButton);
         formLayout.addComponents(nameField, surnameField, telNoField, rehbereEkleButton);
-
-//        listeleLayout.setComponentAlignment(tumKisilerButton,MIDDLE_LEFT);
-//        listeleLayout.setComponentAlignment(kisiSilButton, MIDDLE_RIGHT);
-//        listeleLayout.setWidth("100%");
 
         mainLayout.setMargin(true);
         mainLayout.setSpacing(true);
         setContent(mainLayout);
     }
 
-    private void resetContainer() {
+     public void resetContainer() {
         container.removeAllItems();
         container.addAll(kisiList);
     }

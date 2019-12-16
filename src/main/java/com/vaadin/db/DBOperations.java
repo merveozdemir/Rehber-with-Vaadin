@@ -47,7 +47,7 @@ public class DBOperations {
             e.printStackTrace();
         }
 
-        String sql = "delete from kisi m where id = ?";
+        String sql = "delete from kisi where id = ?";
 
         try (Connection conn = DriverManager.getConnection(JDBC_CONNECTION_STR, USERNAME, PASSWORD);
              PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
@@ -133,6 +133,37 @@ public class DBOperations {
             }
         }
         return filtrelenenListe;
+    }
+
+    public void kisiGuncelle(int id, String adi, String soyadi, String tel){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        String sql = "update kisi set ad = ?, soyad = ?, tel_no =? where id = ?";
+
+        try (Connection conn = DriverManager.getConnection(JDBC_CONNECTION_STR, USERNAME, PASSWORD);
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+            System.out.println("id:" + id);
+
+            preparedStatement.setString(1, adi);
+            preparedStatement.setString(2, soyadi);
+            preparedStatement.setString(3, tel);
+            preparedStatement.setInt(4, id);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            System.out.println(affectedRows + " satır güncellendi.");
+
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 }
